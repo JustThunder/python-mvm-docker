@@ -1,4 +1,4 @@
-# VERSION 0.1.1
+# VERSION 0.1.2
 
 # The Google App Engine python runtime is Debian Jessie with Python installed
 # and various os-level packages to allow installation of popular Python
