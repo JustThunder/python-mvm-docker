@@ -12,7 +12,7 @@ MAINTAINER Eric Higgins <erichiggins@gmail.com>
 # If you want to use Python 3, add the -p python3.4 flag.
 RUN apt-get -q update && \
   apt-get install --no-install-recommends -y -q \
-    unzip && \
+    unzip \
     python-numpy && \
   virtualenv /env && \
   apt-get clean && \
