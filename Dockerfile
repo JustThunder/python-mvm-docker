@@ -22,7 +22,16 @@ RUN apt-get -q update && \
 # the context of the virtualenv and will have access to its dependencies.
 ENV VIRTUAL_ENV /env
 ENV PATH /env/bin:$PATH
+# GAE Python SDK.
+ENV SDK_VERSION 1.9.30
+ENV SDK_URL https://storage.googleapis.com/appengine-sdks/featured/google_appengine_${SDK_VERSION}.zip
+ENV PKG_PATH ${VIRTUAL_ENV}/local/lib/python2.7/site-packages/
 
 # Install dependencies.
+ADD $SDK_URL /google_appengine.zip
 ADD requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
+ADD google_appengine.pth $PKG_PATH
+
+RUN pip install --no-cache-dir -r /app/requirements.txt && \
+    unzip -q /google_appengine.zip && \
+    rm -rf /google_appengine.zip
