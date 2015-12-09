@@ -35,5 +35,4 @@ ADD google_appengine.pth $PKG_PATH
 
 RUN pip install --no-cache-dir -r /app/requirements.txt && \
     unzip -q /google_appengine.zip -d / && \
-    rm -rf /google_appengine.zip && \
-    ls -al /
+    rm -rf /google_appengine.zip
