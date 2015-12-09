@@ -1,7 +1,7 @@
 # python-mvm-docker
 Dockerfile for Python app on Managed VMs
 
-# Instructions
+## Instructions
 
 * `git-flow feature start <feature name>` to create a branch.
 * Make changes.
