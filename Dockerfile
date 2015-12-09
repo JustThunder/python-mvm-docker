@@ -1,4 +1,4 @@
-# VERSION 0.1.3
+# VERSION 0.1.4
 
 # The Google App Engine python runtime is Debian Jessie with Python installed
 # and various os-level packages to allow installation of popular Python
@@ -35,5 +35,4 @@ ADD google_appengine.pth $PKG_PATH
 
 RUN pip install --no-cache-dir -r /app/requirements.txt && \
     unzip -q /google_appengine.zip -d / && \
-    rm -rf /google_appengine.zip && \
-    ls -al /
+    rm -rf /google_appengine.zip
