@@ -12,8 +12,11 @@ MAINTAINER Eric Higgins <erichiggins@gmail.com>
 # If you want to use Python 3, add the -p python3.4 flag.
 RUN apt-get -q update && \
   apt-get install --no-install-recommends -y -q \
+    build-essential python2.7 python2.7-dev python-pip git mercurial \
     unzip \
     python-numpy && \
+  pip install -U pip && \
+  pip install virtualenv && \
   virtualenv /env && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
