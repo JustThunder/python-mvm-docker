@@ -41,4 +41,4 @@ WORKDIR /app
 
 # Configure the entrypoint with Managed VMs-essential configuration like "bind",
 # but leave the rest up to the config file.
-ENTRYPOINT ['gunicorn', '-b', '0.0.0.0:8080', 'google.appengine.vmruntime.wsgi:meta_app', '--log-file=-', '-c', 'gunicorn.conf.py']
+ENTRYPOINT ["/usr/bin/env", "gunicorn", "-b", "0.0.0.0:8080", "google.appengine.vmruntime.wsgi:meta_app", "--log-file=-", "-c", "gunicorn.conf.py"]
