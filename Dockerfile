@@ -4,7 +4,7 @@
 # and various os-level packages to allow installation of popular Python
 # libraries. The source is on github at:
 #   https://github.com/GoogleCloudPlatform/python-docker
-FROM gcr.io/google_appengine/python
+FROM gcr.io/google_appengine/base
 
 MAINTAINER Eric Higgins <erichiggins@gmail.com>
 
@@ -28,10 +28,11 @@ ADD appengine-python-vm-runtime-0.2.tar.gz /home/vmagent/python-runtime.tar.gz
 # Install dependencies.
 ADD requirements.txt /app/requirements.txt
 
-RUN pip install --no-cache-dir -r /app/requirements.txt && \
-    pip install gunicorn==19.4.1 futures==3.0.3 && \
-    pip install google-python-cloud-debugger && \
-    pip install /home/vmagent/python-runtime.tar.gz
+RUN source /env/bin/activate && \
+    pip install --no-cache-dir /home/vmagent/python-runtime.tar.gz && \
+    pip install --no-cache-dir -r /app/requirements.txt && \
+    pip install --no-cache-dir gunicorn==19.4.1 futures==3.0.3 google-python-cloud-debugger
+    
 
 EXPOSE 8080
 RUN ln -s /home/vmagent/app /app
