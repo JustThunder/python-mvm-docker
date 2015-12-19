@@ -32,8 +32,7 @@ COPY appengine-python-vm-runtime-0.2.tar.gz /home/vmagent/python-runtime.tar.gz
 ADD requirements.txt /app/requirements.txt
 
 RUN pip install --no-cache-dir /home/vmagent/python-runtime.tar.gz && \
-    pip install --no-cache-dir -r /app/requirements.txt && \
-    pip install --no-cache-dir gunicorn==19.4.1 futures==3.0.3 google-python-cloud-debugger
+    pip install --no-cache-dir -r /app/requirements.txt
     
 
 EXPOSE 8080
