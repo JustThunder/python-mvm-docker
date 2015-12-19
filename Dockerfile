@@ -23,16 +23,20 @@ RUN apt-get -q update && \
 # the context of the virtualenv and will have access to its dependencies.
 ENV VIRTUAL_ENV /env
 ENV PATH /env/bin:$PATH
-# GAE Python SDK.
-ENV SDK_VERSION 1.9.30
-ENV SDK_URL https://storage.googleapis.com/appengine-sdks/featured/google_appengine_${SDK_VERSION}.zip
-ENV PKG_PATH ${VIRTUAL_ENV}/local/lib/python2.7/site-packages/
 
+ADD appengine-python-vm-runtime-0.2.tar.gz /home/vmagent/python-runtime.tar.gz
 # Install dependencies.
-ADD $SDK_URL /google_appengine.zip
 ADD requirements.txt /app/requirements.txt
-ADD google_appengine.pth $PKG_PATH
 
 RUN pip install --no-cache-dir -r /app/requirements.txt && \
-    unzip -q /google_appengine.zip -d / && \
-    rm -rf /google_appengine.zip
+    pip install gunicorn==19.4.1 futures==3.0.3 && \
+    pip install google-python-cloud-debugger && \
+    pip install /home/vmagent/python-runtime.tar.gz
+
+EXPOSE 8080
+RUN ln -s /home/vmagent/app /app
+WORKDIR /app
+
+# Configure the entrypoint with Managed VMs-essential configuration like "bind",
+# but leave the rest up to the config file.
+ENTRYPOINT ['/usr/bin/env', 'gunicorn', '-b', '0.0.0.0:8080', 'google.appengine.vmruntime.wsgi:meta_app', '--log-file=-', '-c', 'gunicorn.conf.py']
