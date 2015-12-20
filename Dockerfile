@@ -30,6 +30,10 @@ ENV PATH /env/bin:$PATH
 COPY appengine-python-vm-runtime-0.2.tar.gz /home/vmagent/python-runtime.tar.gz
 # Install dependencies.
 ADD requirements.txt /app/requirements.txt
+# Add the default gunicorn configuration file to the app directory. This
+# default file will be overridden if the user adds a file called
+# "gunicorn.conf.py" to their app's root directory.
+ADD gunicorn.conf.py /app/gunicorn.conf.py
 
 RUN pip install --no-cache-dir /home/vmagent/python-runtime.tar.gz && \
     pip install --no-cache-dir -r /app/requirements.txt
