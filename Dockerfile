@@ -37,5 +37,4 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
     
 
 EXPOSE 8080
-RUN ln -s /home/vmagent/app /app
 WORKDIR /app
