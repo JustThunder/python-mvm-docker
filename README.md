@@ -1,8 +1,7 @@
 # python-mvm-docker
 Dockerfile for Python app on Managed VMs
 
-Based on [GoogleCloudPlatform/appengine-python-vm-runtime](https://github.com/GoogleCloudPlatform/appengine-python-vm-runtime).
-The `appengine-python-vm-runtime` tarball can be generated from the instructions on that repo.
+Based on [GoogleCloudPlatform/python-compat-runtime](https://github.com/GoogleCloudPlatform/python-compat-runtime).
 
 
 ## Instructions
