@@ -2,9 +2,8 @@
 
 # The Google App Engine python runtime is Debian Jessie with Python installed
 # and various os-level packages to allow installation of popular Python
-# libraries. The source is on github at:
-#   https://github.com/GoogleCloudPlatform/python-docker
-FROM gcr.io/google_appengine/base
+# libraries.
+FROM gcr.io/google_appengine/python-compat-multicore
 
 MAINTAINER Eric Higgins <erichiggins@gmail.com>
 
@@ -15,34 +14,13 @@ RUN apt-get -q update && \
     build-essential python2.7 python2.7-dev python-pip git mercurial \
     unzip \
     python-numpy && \
-  pip install -U pip && \
-  pip install virtualenv && \
-  virtualenv /env && \
+#  pip install -U pip && \
+#  pip install virtualenv && \
+#  virtualenv /env -p python2.7 && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
-# Set virtualenv environment variables. This is equivalent to running
-# source /env/bin/activate. This ensures the application is executed within
-# the context of the virtualenv and will have access to its dependencies.
-ENV VIRTUAL_ENV /env
-ENV PATH /env/bin:$PATH
-
-COPY appengine-python-vm-runtime-0.2.tar.gz /home/vmagent/python-runtime.tar.gz
 # Install dependencies.
 ADD requirements.txt /app/requirements.txt
-# Add the default gunicorn configuration file to the app directory. This
-# default file will be overridden if the user adds a file called
-# "gunicorn.conf.py" to their app's root directory.
-ADD gunicorn.conf.py /app/gunicorn.conf.py
 
-RUN pip install --no-cache-dir /home/vmagent/python-runtime.tar.gz && \
-    pip install --no-cache-dir -r /app/requirements.txt
-    
-
-EXPOSE 8080
-RUN ln -s /home/vmagent/app /app
-WORKDIR /app
-
-# Configure the entrypoint with Managed VMs-essential configuration like "bind",
-# but leave the rest up to the config file.
-ENTRYPOINT ["/usr/bin/env", "gunicorn", "-b", "0.0.0.0:8080", "google.appengine.vmruntime.wsgi:meta_app", "--log-file=-", "-c", "gunicorn.conf.py"]
+RUN pip install --no-cache-dir -r /app/requirements.txt
