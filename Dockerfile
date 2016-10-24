@@ -1,4 +1,4 @@
-# VERSION 0.1.5
+# VERSION 0.3.0
 
 # The Google App Engine python runtime is Debian Jessie with Python installed
 # and various os-level packages to allow installation of popular Python
@@ -11,7 +11,9 @@ MAINTAINER Eric Higgins <erichiggins@gmail.com>
 # If you want to use Python 3, add the -p python3.4 flag.
 RUN apt-get -q update && \
   apt-get install --no-install-recommends -y -q \
-    build-essential python2.7 python2.7-dev python-pip git mercurial \
+    build-essential \
+    python2.7 python2.7-dev python-pip \
+    git mercurial \
     unzip \
     python-numpy && \
 #  pip install -U pip && \
@@ -21,6 +23,6 @@ RUN apt-get -q update && \
   rm -rf /var/lib/apt/lists/*
 
 # Install dependencies.
-ADD requirements.txt /app/requirements.txt
+COPY requirements.txt /app/
 
 RUN pip install --no-cache-dir -r /app/requirements.txt
