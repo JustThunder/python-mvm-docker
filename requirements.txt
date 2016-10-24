@@ -1,3 +1,3 @@
-Flask==0.10.1
-gaek==0.2.1
-numpy==1.11.0
+Flask==0.11.1
+gaek==0.3.0
+numpy==1.11.2
