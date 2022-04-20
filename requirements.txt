@@ -1,3 +1,3 @@
 Flask==1.0
 gaek==0.3.0
-numpy==1.11.2
+numpy==1.21.0
