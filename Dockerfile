@@ -25,4 +25,5 @@ RUN apt-get -q update && \
 # Install dependencies.
 COPY requirements.txt /app/
 
-RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install --upgrade pip && \
+  pip install --no-cache-dir -r /app/requirements.txt
